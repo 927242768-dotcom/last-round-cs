@@ -1,0 +1,13 @@
+{
+  "name": "last-round-cs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "wrangler dev --ip 127.0.0.1 --port 4173",
+    "migrate": "wrangler d1 migrations apply DB --local"
+  },
+  "devDependencies": {
+    "wrangler": "4.92.0"
+  }
+}

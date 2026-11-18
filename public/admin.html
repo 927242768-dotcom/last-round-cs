@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex">
+  <title>作品管理 · 残局之后</title>
+  <link rel="stylesheet" href="/admin.css">
+  <script src="/admin.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="wordmark" href="/" aria-label="残局之后首页"><span aria-hidden="true"></span>LAST ROUND</a>
+      <div class="topbar-actions">
+        <a class="return-link" href="/">返回主页 <span aria-hidden="true">↗</span></a>
+        <button class="button button-quiet" type="button" id="logout" hidden>退出登录</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" id="main">
+    <section class="login panel" id="login-panel" aria-labelledby="login-title" hidden>
+      <h1 id="login-title">作品管理</h1>
+      <p class="muted">输入管理密码进入后台。</p>
+      <form id="login-form">
+        <label class="field" for="password">
+          <span>管理密码</span>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <p class="feedback" id="login-message" role="status" hidden></p>
+        <button class="button button-primary" type="submit" id="signin">登录</button>
+      </form>
+    </section>
+
+    <section class="dashboard" id="dashboard" aria-labelledby="dashboard-title" hidden>
+      <div class="dashboard-header">
+        <div>
+          <h1 id="dashboard-title">作品管理</h1>
+          <p class="muted" id="works-summary"></p>
+        </div>
+        <button class="button button-primary" type="button" id="new-work"><span aria-hidden="true">+</span> 新增作品</button>
+      </div>
+      <p class="feedback" id="dashboard-message" role="status" hidden></p>
+      <div class="works-list" id="works-list"></div>
+    </section>
+
+    <section class="panel state-panel" id="page-state" aria-label="页面状态">
+      <p class="muted" id="page-state-message" role="status">正在检查登录状态…</p>
+      <button class="button button-quiet" type="button" id="retry" hidden>重试</button>
+    </section>
+  </main>
+
+  <dialog class="dialog" id="editor" aria-labelledby="editor-title">
+    <form id="work-form">
+      <header class="dialog-header">
+        <h2 id="editor-title">新增作品</h2>
+        <button class="icon-button" type="button" id="close-editor" aria-label="关闭编辑窗口" title="关闭编辑窗口">×</button>
+      </header>
+      <div class="form-body">
+        <label class="field" for="work-title">
+          <span>作品标题</span>
+          <input id="work-title" name="title" type="text" maxlength="120" required>
+        </label>
+        <div class="field-row">
+          <label class="field" for="work-category">
+            <span>分类</span>
+            <input id="work-category" name="category" type="text" list="categories" maxlength="60" required>
+            <datalist id="categories"></datalist>
+          </label>
+          <label class="field" for="work-order">
+            <span>排序</span>
+            <input id="work-order" name="order" type="number" min="0" max="999999" step="1" inputmode="numeric" aria-describedby="sort-hint" required>
+            <small id="sort-hint">数字越小越靠前。</small>
+          </label>
+        </div>
+        <label class="field" for="work-description">
+          <span>作品说明</span>
+          <textarea id="work-description" name="description" rows="3" maxlength="3000"></textarea>
+        </label>
+        <fieldset class="media-field">
+          <legend>封面</legend>
+          <label for="work-poster">封面链接 <span class="muted">（选填）</span></label>
+          <div class="upload-row">
+            <input id="work-poster" name="poster" type="text" inputmode="url" maxlength="2048" placeholder="https://… 或 /media/…">
+            <label class="button button-quiet file-button" for="poster-file">上传图片</label>
+            <input class="file-input" type="file" id="poster-file" accept="image/jpeg,image/png,image/webp,image/avif,image/gif" aria-describedby="poster-feedback">
+          </div>
+          <p class="feedback media-feedback" id="poster-feedback" role="status" hidden></p>
+        </fieldset>
+        <fieldset class="media-field">
+          <legend>视频</legend>
+          <label for="work-video">视频链接 <span class="muted">（必填）</span></label>
+          <div class="upload-row">
+            <input id="work-video" name="video" type="text" inputmode="url" maxlength="2048" placeholder="https://… 或 /media/…" required>
+            <label class="button button-quiet file-button" for="video-file">上传视频</label>
+            <input class="file-input" type="file" id="video-file" accept="video/mp4,video/webm" aria-describedby="video-feedback">
+          </div>
+          <p class="feedback media-feedback" id="video-feedback" role="status" hidden></p>
+        </fieldset>
+        <label class="check-field" for="work-published">
+          <input id="work-published" name="published" type="checkbox">
+          <span>上架至个人主页</span>
+        </label>
+      </div>
+      <footer class="dialog-footer">
+        <p class="feedback" id="editor-message" role="status" hidden></p>
+        <div class="footer-actions">
+          <button class="button button-quiet" id="cancel-editor" type="button">取消</button>
+          <button class="button button-primary" id="save-work" type="submit">保存作品</button>
+        </div>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog class="dialog confirm-dialog" id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-copy">
+    <form id="delete-form">
+      <header class="dialog-header"><h2 id="delete-title">删除作品</h2></header>
+      <div class="form-body">
+        <p id="delete-copy"></p>
+        <p class="feedback" id="delete-message" role="status" hidden></p>
+      </div>
+      <footer class="dialog-footer">
+        <div class="footer-actions">
+          <button class="button button-quiet" type="button" id="cancel-delete" autofocus>取消</button>
+          <button class="button button-danger" type="submit" id="confirm-delete">删除作品</button>
+        </div>
+      </footer>
+    </form>
+  </dialog>
+
+  <template id="work-card-template">
+    <article class="work-card">
+      <div class="work-cover" aria-hidden="true"><span>▶</span><img alt="" loading="lazy" hidden></div>
+      <div class="work-content">
+        <div class="work-meta"><span class="work-category"></span><span class="work-order"></span></div>
+        <h2 class="work-title"></h2>
+        <p class="work-description" hidden></p>
+      </div>
+      <div class="work-controls">
+        <span class="status-tag"></span>
+        <div class="work-actions">
+          <button class="button button-quiet" type="button" data-action="edit">编辑</button>
+          <button class="button button-quiet" type="button" data-action="toggle"></button>
+          <button class="button button-text-danger" type="button" data-action="delete">删除</button>
+        </div>
+      </div>
+    </article>
+  </template>
+</body>
+</html>

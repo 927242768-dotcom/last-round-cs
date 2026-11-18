@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#26271f">
+  <meta name="description" content="残局之后，一个 CS 玩家的实战回放和战局复盘。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="残局之后 · LAST ROUND">
+  <meta property="og:description" content="从 Dust II 的 A 小道开始。">
+  <title>残局之后 · LAST ROUND</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="preload" href="/art/operator.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="/art/olive-stage.webp" as="image">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/gallery.css">
+  <link rel="stylesheet" href="/arena.css">
+  <link rel="stylesheet" href="/loadout.css">
+  <link rel="stylesheet" href="/chapters.css">
+  <script type="module" src="/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">跳到正文</a>
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="残局之后，返回首屏"><i aria-hidden="true"></i><span>残局之后</span></a>
+    <nav aria-label="网站导航">
+      <a href="#about">关于我</a>
+      <a href="#arena" hidden>战局</a>
+      <a href="#loadout">装备</a>
+      <a href="#replays">回放</a>
+      <a href="#offscreen">日常</a>
+    </nav>
+    <div class="reading-progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="content">
+    <div class="story">
+      <div class="story-screen" aria-hidden="true">
+        <div class="stage-world"></div>
+        <div class="pose pose-cover" data-pose="cover">
+          <div class="hero-portrait"><img src="/art/operator.webp" width="1192" height="1320" alt="" draggable="false" fetchpriority="high"></div>
+        </div>
+        <div class="pose pose-uncross" data-pose="uncross"><img src="/art/uncross.webp" alt="" draggable="false" decoding="async"></div>
+        <div class="pose pose-profile" data-pose="profile"><img src="/art/profile.webp" alt="" draggable="false" decoding="async"></div>
+        <div class="pose pose-sit" data-pose="sit"><img src="/art/sit-shift.webp" alt="" draggable="false" decoding="async"></div>
+        <div class="pose pose-locker" data-pose="locker"><img src="/art/locker.webp" alt="" draggable="false" decoding="async"></div>
+        <div class="stage-shade"></div>
+      </div>
+
+      <div class="story-content">
+        <section id="top" class="hero scene" aria-labelledby="hero-title">
+          <div class="hero-layout">
+            <div class="hero-copy story-copy">
+              <h1 id="hero-title">残局<br>之后<span>。</span></h1>
+              <p>你们先下，我再打一把。</p>
+            </div>
+            <div class="hero-action">
+              <a class="pill" href="#replays"><span class="play-mark" aria-hidden="true"></span> 看实战</a>
+            </div>
+          </div>
+          <a class="down-link orbit-button" href="#about" aria-label="向下浏览">↓</a>
+          <canvas class="water" aria-hidden="true"></canvas>
+        </section>
+
+        <section id="about" class="about scene" aria-labelledby="about-title">
+          <div class="about-copy story-copy">
+            <h2 id="about-title">我就爱打<span> CS。</span></h2>
+            <p>打完一局，最想倒回去看的，总是最后那几秒。</p>
+            <p>这个地方，就用来存那些舍不得关掉的回放。弹匣见底、只剩一点血的时候，反而最想把这局打完。</p>
+            <a class="line-link" href="#arena" hidden>沿着 A 小道走一遍 <span aria-hidden="true">↘</span></a>
+            <a class="about-offscreen" href="#offscreen">也看看游戏之外 <span aria-hidden="true">↗</span></a>
+          </div>
+        </section>
+
+        <section id="archive" class="archive scene" aria-labelledby="archive-title">
+          <div class="archive-copy story-copy">
+            <h2 id="archive-title">战局档案<span>。</span></h2>
+            <button class="case-button" id="open-archive" type="button" aria-haspopup="dialog" aria-controls="archive-dialog">
+              <img src="/art/case.webp" alt="" width="900" height="507" draggable="false">
+              <span class="case-label">打开回放箱 <span aria-hidden="true">↗</span></span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section id="arena" class="arena-section scene" aria-label="A 小道战局探索" hidden>
+      <div id="arena-root"></div>
+    </section>
+
+    <section id="notes" class="notes scene" aria-labelledby="notes-title" hidden>
+      <div class="notes-wrap">
+        <div class="notes-intro">
+          <h2 id="notes-title">战局复盘<span>。</span></h2>
+          <p>从 A 小道到包点，回看那几秒。</p>
+        </div>
+        <div class="notes-composition">
+          <div class="note-frame">
+            <button type="button" class="note-play" id="note-play">
+              <img id="note-image" alt="">
+              <span class="note-play-label"><span class="play-mark" aria-hidden="true"></span><span id="note-play-text"></span></span>
+            </button>
+            <div class="note-caption" aria-live="polite">
+              <h3 id="note-title"></h3>
+              <p id="note-text"></p>
+            </div>
+          </div>
+          <div id="note-options" class="note-options" aria-label="选择复盘分镜"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="loadout" class="loadout-section scene" aria-label="这一局的装备">
+      <div id="loadout-root"></div>
+    </section>
+
+    <section id="replays" class="replay-section scene" aria-labelledby="replays-title">
+      <div class="replay-container">
+        <h2 id="replays-title">精彩回放<span>。</span></h2>
+        <div id="gallery-root"></div>
+      </div>
+    </section>
+
+    <section id="offscreen" class="offscreen scene" aria-labelledby="offscreen-title">
+      <picture class="offscreen-picture">
+        <source media="(max-width: 700px)" srcset="/art/offscreen-mobile.webp">
+        <img src="/art/offscreen.webp" alt="戴墨镜的动漫少年靠在江边栏杆上，身后是上海天际线" width="1672" height="941" loading="lazy" decoding="async">
+      </picture>
+      <div class="offscreen-content">
+        <div class="offscreen-copy">
+          <p class="offscreen-place">上海 · 外滩</p>
+          <h2 id="offscreen-title">摘下耳机，<br>吹会儿风<span>。</span></h2>
+          <p>偶尔离开 Dust II，去江边站一会儿。<br>墨镜戴上，下一局晚点再说。</p>
+        </div>
+        <a class="offscreen-link" href="#replays">风吹够了，回去看一局 <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="outro scene" aria-labelledby="outro-title">
+      <div class="outro-inner">
+        <div class="outro-copy">
+          <h2 id="outro-title">下把见<span>。</span></h2>
+          <a class="pill pill-outline" href="#top">回到首屏 <span aria-hidden="true">↑</span></a>
+        </div>
+        <img src="/art/outro.webp" alt="" loading="lazy" decoding="async" draggable="false">
+      </div>
+      <footer class="site-foot">
+        <a href="#top">残局之后</a>
+        <a href="/admin">作品管理 <span aria-hidden="true">↗</span></a>
+      </footer>
+    </section>
+  </main>
+
+  <dialog class="archive-dialog" id="archive-dialog" aria-labelledby="archive-dialog-heading">
+    <div class="archive-surface">
+      <h2 id="archive-dialog-heading">回放箱</h2>
+      <button type="button" class="orbit-button close-dialog" aria-label="关闭回放箱">×</button>
+      <div class="case-spread">
+        <div class="archive-cards" id="archive-cards"></div>
+        <img class="open-case" src="/art/open-case.webp" alt="" width="1080" height="608" draggable="false">
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="replay-dialog" id="replay-dialog" aria-labelledby="replay-title">
+    <div class="replay-surface">
+      <button class="orbit-button close-dialog" type="button" aria-label="关闭回放">×</button>
+      <div class="video-matte">
+        <video id="replay-video" controls playsinline preload="metadata"></video>
+        <p id="replay-error" role="status" hidden>暂时无法播放此视频。</p>
+      </div>
+      <div class="replay-detail">
+        <h2 id="replay-title"></h2>
+        <p id="replay-description"></p>
+        <div class="jump-list" id="jump-list" aria-label="跳到关键时刻"></div>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>

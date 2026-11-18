@@ -1,0 +1,100 @@
+.about-offscreen {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #d9c6a8;
+}
+.about-offscreen:hover { color: var(--gold); }
+.offscreen {
+  position: relative;
+  min-height: clamp(620px, 92svh, 1050px);
+  isolation: isolate;
+  overflow: clip;
+  background: #45585d;
+}
+.offscreen-picture {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.offscreen-picture img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 60% center;
+}
+.offscreen::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #172e3dd4, #19384385 33%, #19384300 68%),
+    linear-gradient(180deg, #20333c38, transparent 60%, #152c39bf);
+}
+.offscreen-content {
+  padding: clamp(65px, 8vw, 130px) var(--gutter) 36px;
+  min-height: inherit;
+  max-width: 1780px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 80px;
+}
+.offscreen-copy { width: min(50%, 660px); }
+.offscreen-place {
+  margin: 0 0 25px;
+  font-size: 13px;
+  color: #d6e2de;
+  letter-spacing: .08em;
+}
+.offscreen h2 {
+  font-size: clamp(47px, 5.6vw, 96px);
+  line-height: 1.16;
+  color: #fbefd8;
+  letter-spacing: -.065em;
+  text-shadow: 0 4px 24px #1a323066;
+}
+.offscreen-copy > p:last-child {
+  color: #e1e7dc;
+  font-size: clamp(15px, 1.28vw, 20px);
+  line-height: 1.9;
+  margin: 28px 0 0;
+  text-shadow: 0 2px 12px #18303696;
+}
+.offscreen-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  color: #f8ecd8;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9d6b597;
+  font-size: 13px;
+}
+.offscreen-link:hover { color: #ffdca1; }
+.offscreen-link span { color: #ffdca1; font-size: 18px; }
+.archive-card img { object-position: center; }
+
+@media (max-width: 700px) {
+  .about-offscreen { margin-top: 10px; font-size: 11px; }
+  .topbar nav { gap: clamp(10px, 3vw, 18px); }
+  .offscreen { min-height: 760px; min-height: max(740px, 94svh); }
+  .offscreen-picture img { object-position: center; }
+  .offscreen::before {
+    background: linear-gradient(180deg, #213f50d9, #213f5099 26%, transparent 58%, #1d3445de);
+  }
+  .offscreen-content { padding-top: 51px; padding-bottom: 29px; }
+  .offscreen-copy { width: 100%; }
+  .offscreen h2 { font-size: clamp(43px, 10.5vw, 66px); }
+  .offscreen-place { margin-bottom: 17px; font-size: 12px; }
+  .offscreen-copy > p:last-child { margin-top: 16px; font-size: 14px; }
+  .offscreen-link { font-size: 12px; }
+}
+@media (max-width: 355px) {
+  .topbar nav { gap: 9px; }
+}

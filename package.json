@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "node hosting/server.mjs",
     "build": "node scripts/build.mjs",
     "dev": "wrangler dev --ip 127.0.0.1 --port 4173",
     "migrate": "wrangler d1 migrations apply DB --local"

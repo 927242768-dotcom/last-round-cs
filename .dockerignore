@@ -1,0 +1,11 @@
+**
+!package.json
+!Dockerfile
+!public/
+!public/**
+!server/
+!server/**
+!hosting/
+!hosting/**
+!drizzle/
+!drizzle/**

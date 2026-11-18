@@ -79,7 +79,17 @@ export async function uploadMedia(request, bucket) {
     if (length > maxUpload) throw new RequestError(413, "每个文件最多 90 MiB。");
 
     const input = await validatedStream(request.body, length, format);
-    const output = new FixedLengthStream(length);
+    let received = 0;
+    const output = typeof FixedLengthStream === "function" ? new FixedLengthStream(length) : new TransformStream({
+        transform(chunk, controller) {
+            received += chunk.byteLength;
+            if (received > length) throw new RequestError(400, "上传大小与实际内容不一致。");
+            controller.enqueue(chunk);
+        },
+        flush() {
+            if (received !== length) throw new RequestError(400, "上传内容不完整。");
+        },
+    });
     const objectKey = `${crypto.randomUUID()}.${format.extension}`;
     const abort = new AbortController();
     // 固定长度流使 Worker 无需把整段视频缓冲到内存。

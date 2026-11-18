@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 阅读维护文档
+    url: https://github.com/927242768-dotcom/last-round-cs/tree/main/docs
+    about: 本地运行、部署、作品管理与常见问题。
+  - name: 私密安全报告
+    url: https://github.com/927242768-dotcom/last-round-cs/security/advisories/new
+    about: 涉及令牌、登录和访问控制时，请勿在公开 Issue 中提交细节。

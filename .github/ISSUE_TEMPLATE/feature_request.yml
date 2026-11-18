@@ -1,0 +1,23 @@
+name: 改进建议
+description: 提出与本站相关、能够说明使用场景的建议。
+title: '[建议] '
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: 使用场景
+      description: 在什么情况下遇到了什么不便？
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议的行为
+      description: 描述希望发生的具体变化。
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: 参考与补充
+      description: 可附公开参考链接，请勿上传未经授权的素材。

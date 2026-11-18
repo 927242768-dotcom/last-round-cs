@@ -1,0 +1,37 @@
+name: 问题反馈
+description: 报告网页、后台或运行中的可复现问题。
+title: '[问题] '
+body:
+  - type: markdown
+    attributes:
+      value: '请勿提交密码、访问令牌或私人素材。安全问题请按 SECURITY.md 私下报告。'
+  - type: input
+    id: page
+    attributes:
+      label: 页面或运行入口
+      placeholder: 例如：在线网站的实战回放，或本地 Node 后台
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 写出可以重复观察到问题的操作。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 预期结果与实际结果
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 设备与环境
+      placeholder: 操作系统、浏览器与版本；本地问题请附 Node 版本
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 截图与补充信息
+      description: 截图和日志请先移除敏感内容。

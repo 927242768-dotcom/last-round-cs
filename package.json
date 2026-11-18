@@ -1,14 +1,21 @@
 {
   "name": "last-round-cs",
   "private": true,
+  "description": "LAST ROUND · 残局之后，一个 CS 玩家的个人作品站与作品管理后台。",
+  "license": "UNLICENSED",
+  "author": "927242768-dotcom",
   "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "homepage": "https://927242768-dotcom.github.io/",
+  "repository": { "type": "git", "url": "git+https://github.com/927242768-dotcom/last-round-cs.git" },
+  "bugs": { "url": "https://github.com/927242768-dotcom/last-round-cs/issues" },
+  "keywords": ["cs2", "portfolio", "github-pages", "vanilla-javascript", "anime"],
   "scripts": {
     "start": "node hosting/server.mjs",
-    "build": "node scripts/build.mjs",
-    "dev": "wrangler dev --ip 127.0.0.1 --port 4173",
-    "migrate": "wrangler d1 migrations apply DB --local"
-  },
-  "devDependencies": {
-    "wrangler": "4.92.0"
+    "dev": "node --watch --env-file=.env hosting/server.mjs",
+    "start:local": "node --env-file=.env hosting/server.mjs",
+    "check": "node scripts/check-repository.mjs",
+    "build": "node scripts/build-pages.mjs .local/pages-build",
+    "build:pages": "node scripts/build-pages.mjs"
   }
 }

@@ -1,7 +1,12 @@
 node_modules/
 .env*
+!.env.example
 .dev.vars*
 .local/
 .wrangler/
 dist/
 *.log
+coverage/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
